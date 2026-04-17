@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ArtiFacts by Artists</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            background: white;
+            color: black;
+            width: 420px;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 15px;
+        }
+
+        button {
+            background: #2c5364;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        img {
+            margin-top: 10px;
+            border-radius: 10px;
+            width: 220px;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🎨 ArtiFacts by Artists</h1>
+
+<div class="container">
+
+<!-- ARTIST -->
+<div class="box">
+    <h2>Artist Detection</h2>
+
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button>Detect</button>
+    </form>
+
+    {% if image_file %}
+    <img src="{{ url_for('static', filename=image_file) }}">
+    {% endif %}
+
+    {% if result %}
+    <h3>🎯 {{ result }}</h3>
+    {% endif %}
+
+    {% if info %}
+    <p><b>Years:</b> {{ info.years }}</p>
+    <p><b>Genre:</b> {{ info.genre }}</p>
+    <p><b>Nationality:</b> {{ info.nationality }}</p>
+    <p>{{ info.bio }}</p>
+    {% endif %}
+</div>
+
+<!-- STYLE -->
+<div class="box">
+    <h2>Style Transfer</h2>
+
+    <form action="/style" method="post" enctype="multipart/form-data">
+        <p>Content</p>
+        <input type="file" name="content" required>
+
+        <p>Style</p>
+        <input type="file" name="style" required>
+
+        <button>Generate</button>
+    </form>
+
+    {% if output_image %}
+    <img src="{{ url_for('static', filename=output_image) }}">
+
+    <br><br>
+    <a href="/download">
+        <button>⬇ Download Image</button>
+    </a>
+    {% endif %}
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>ML Developer: Mayank Singh | 01mayank7773@gmail.com</p>
+    <p>Data Processing: Jitendra Nath</p>
+    <p>Web Developer: Sanish</p>
+</footer>
+
+</body>
+</html>
