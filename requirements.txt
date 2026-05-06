@@ -1,5 +1,7 @@
 flask
+gunicorn
 torch
 torchvision
 pillow
-gunicorn
+pandas
+numpy
